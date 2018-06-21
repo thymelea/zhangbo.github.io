@@ -5,18 +5,19 @@
   
 
   
-  <title>张博的网站</title>
+  <title>MySQL 为日期增加一个时间间隔 | 张博的网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学海无涯，止于至善">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张博的网站">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="IO的方式通常分为几种，同步阻塞的BIO、同步非阻塞的NIO、异步非阻塞的AIO。 BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，而客户端发送请求后，先咨询服务端是否有线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 为日期增加一个时间间隔">
+<meta property="og:url" content="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/index.html">
 <meta property="og:site_name" content="张博的网站">
-<meta property="og:description" content="学海无涯，止于至善">
+<meta property="og:description" content="IO的方式通常分为几种，同步阻塞的BIO、同步非阻塞的NIO、异步非阻塞的AIO。 BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，而客户端发送请求后，先咨询服务端是否有线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，客">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-21T08:06:12.769Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张博的网站">
-<meta name="twitter:description" content="学海无涯，止于至善">
+<meta name="twitter:title" content="MySQL 为日期增加一个时间间隔">
+<meta name="twitter:description" content="IO的方式通常分为几种，同步阻塞的BIO、同步非阻塞的NIO、异步非阻塞的AIO。 BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，而客户端发送请求后，先咨询服务端是否有线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，客">
   
     <link rel="alternate" href="/atom.xml" title="张博的网站" type="application/atom+xml">
   
@@ -65,9 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-BIO,NIO,AIO不同" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-BIO,NIO,AIO不同" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/21/BIO,NIO,AIO不同/" class="article-date">
   <time datetime="2018-06-21T08:00:23.930Z" itemprop="datePublished">2018-06-21</time>
@@ -80,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/21/BIO,NIO,AIO不同/">MySQL 为日期增加一个时间间隔</a>
+    <h1 class="article-title" itemprop="name">
+      MySQL 为日期增加一个时间间隔
     </h1>
   
 
@@ -134,94 +133,19 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-MySQL时间增加" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/21/MySQL时间增加/" class="article-date">
-  <time datetime="2018-06-21T07:35:58.629Z" itemprop="datePublished">2018-06-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/21/MySQL时间增加/">MySQL 为日期增加一个时间间隔</a>
-    </h1>
+    <a href="/2018/06/21/MySQL时间增加/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL 为日期增加一个时间间隔</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> @dt = now();  </span><br><span class="line">select date_add(@dt, interval 1 day);   - 加1天  </span><br><span class="line">select date_add(@dt, interval 1 hour);   -加1小时  </span><br><span class="line">select date_add(@dt, interval 1 minute);    - 加1分钟  </span><br><span class="line">select date_add(@dt, interval 1 second); -加1秒  </span><br><span class="line">select date_add(@dt, interval 1 microsecond);-加1毫秒  </span><br><span class="line">select date_add(@dt, interval 1 week);-加1周  </span><br><span class="line">select date_add(@dt, interval 1 month);-加1月  </span><br><span class="line">select date_add(@dt, interval 1 quarter);-加1季  </span><br><span class="line">select date_add(@dt, interval 1 year);-加1年</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://blog.csdn.net/mr_linjw/article/details/49849691" target="_blank" rel="noopener">更多</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjio9isci0002w40lu2p5libd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/06/20/hello-world/" class="article-date">
-  <time datetime="2018-06-20T03:57:25.286Z" itemprop="datePublished">2018-06-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/20/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjio9isck0003w40l4oaqpxv8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
