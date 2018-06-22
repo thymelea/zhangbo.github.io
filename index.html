@@ -8,6 +8,7 @@
   <title>张博的网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="学海无涯，止于至善">
+<meta name="keywords" content="勤学如春起之苗，不见其增，日有所长。缀学如磨刀之石，不见其损，日有所亏。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="张博的网站">
 <meta property="og:url" content="http://yoursite.com/index.html">
@@ -93,7 +94,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><pre><code>&gt; 几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象
+        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><pre><code>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象
 复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象
 发到survior里面，survivor再放到老域
 </code></pre><h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><pre><code>存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收
@@ -103,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipf89vq0003rc0l4ij6feum" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipkzhq60004lo0lva3tx5d9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,8 +144,8 @@ NIO基于Reactor，当socket有流可读或可写入socket时，操作系统会�
 </code></pre><p>   BIO与NIO一个比较重要的不同，是我们使用BIO的时候往往会引入多线程，每个连接一个单独的线程；而NIO则是使用单线程或者只使用少量的多线程，每个连接共用一个线程。<br>    NIO的最重要的地方是当一个连接创建后，不需要对应一个线程，这个连接会被注册到多路复用器上面，所以所有的连接只需要一个线程就可以搞定，当这个线程中的多路复用器进行轮询的时候，发现连接上有请求的话，才开启一个线程进行处理，也就是一个请求一个线程模式。</p>
 <pre><code>在NIO的处理方式中，当一个请求来的话，开启线程进行处理，可能会等待后端应用的资源(JDBC连接等)，其实这个线程就被阻塞了，当并发上来的话，还是会有BIO一样的问题。
 </code></pre><p>　　HTTP/1.1出现后，有了Http长连接，这样除了超时和指明特定关闭的http header外，<br>    这个链接是一直打开的状态的，这样在NIO处理中可以进一步的进化，在后端资源中可以实现资源池或者队列，当请求来的话，<br>    开启的线程把请求和请求数据传送给后端资源池或者队列里面就返回，并且在全局的地方保持住这个现场(哪个连接的哪个请求等)，这样前面的线程还是可以去接受其他的请求，而后端的应用的处理只需要执行队列里面的就可以了，<br>    这样请求处理和后端应用是异步的.当后端处理完，到全局地方得到现场，产生响应，这个就实现了异步处理。</p>
-<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h2><p>在JDK1.7中，这部分内容被称作NIO.2，主要在java.nio.channels包下增加了下面四个异步通道：</p>
-<h3 id="AsynchronousSocketChannel"><a href="#AsynchronousSocketChannel" class="headerlink" title="AsynchronousSocketChannel"></a>AsynchronousSocketChannel</h3><h3 id="AsynchronousServerSocketChannel"><a href="#AsynchronousServerSocketChannel" class="headerlink" title="AsynchronousServerSocketChannel"></a>AsynchronousServerSocketChannel</h3><h3 id="AsynchronousFileChannel"><a href="#AsynchronousFileChannel" class="headerlink" title="AsynchronousFileChannel"></a>AsynchronousFileChannel</h3><h3 id="AsynchronousDatagramChannel"><a href="#AsynchronousDatagramChannel" class="headerlink" title="AsynchronousDatagramChannel"></a>AsynchronousDatagramChannel</h3><pre><code>与NIO不同，当进行读写操作时，只须直接调用API的read或write方法即可。这两种方法均为异步的，对于读操作而言，当有流可读取时，操作系统会将可读的流传入read方法的缓冲区，并通知应用程序；对于写操作而言，当操作系统将write方法传递的流写入完毕时，操作系统主动通知应用程序。  即可以理解为，read/write方法都是异步的，完成后会主动调用回调函数。  
+<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h2><pre><code>在JDK1.7中，这部分内容被称作NIO.2，主要在java.nio.channels包下增加了下面四个异步通道：
+</code></pre><h3 id="AsynchronousSocketChannel"><a href="#AsynchronousSocketChannel" class="headerlink" title="AsynchronousSocketChannel"></a>AsynchronousSocketChannel</h3><h3 id="AsynchronousServerSocketChannel"><a href="#AsynchronousServerSocketChannel" class="headerlink" title="AsynchronousServerSocketChannel"></a>AsynchronousServerSocketChannel</h3><h3 id="AsynchronousFileChannel"><a href="#AsynchronousFileChannel" class="headerlink" title="AsynchronousFileChannel"></a>AsynchronousFileChannel</h3><h3 id="AsynchronousDatagramChannel"><a href="#AsynchronousDatagramChannel" class="headerlink" title="AsynchronousDatagramChannel"></a>AsynchronousDatagramChannel</h3><pre><code>与NIO不同，当进行读写操作时，只须直接调用API的read或write方法即可。这两种方法均为异步的，对于读操作而言，当有流可读取时，操作系统会将可读的流传入read方法的缓冲区，并通知应用程序；对于写操作而言，当操作系统将write方法传递的流写入完毕时，操作系统主动通知应用程序。  即可以理解为，read/write方法都是异步的，完成后会主动调用回调函数。  
 
 其中的read/write方法，会返回一个带回调函数的对象，当执行完读取/写入操作后，直接调用回调函数。
 
@@ -178,7 +179,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjipf89vi0000rc0l73sbrhbi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjipkzhq30002lo0lve9xc1e1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -216,7 +217,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjipf89vo0002rc0ln0ewa5xb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjipkzhpx0000lo0lg338vzcv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -261,7 +262,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjipf89vs0004rc0lwonlcw9a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjipkzhq50003lo0loyrpkgsd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -329,7 +330,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 zhangbo<br>
+      &copy; 2018 张博<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
