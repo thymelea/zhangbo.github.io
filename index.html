@@ -71,6 +71,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jvmGC机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/22/jvmGC机制/" class="article-date">
+  <time datetime="2018-06-22T02:18:08.226Z" itemprop="datePublished">2018-06-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/22/jvmGC机制/">gc垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##新域<br>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象<br>复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象<br>发到survior里面，survivor再放到老域</p>
+<h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><p>少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收</p>
+<p>##<br>如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。<br>通常情况下，JVM堆的大小应为物理内存的80%。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipedkx100034s0l29w8rih8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-BIO,NIO,AIO不同" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/21/BIO,NIO,AIO不同/" class="article-date">
@@ -136,7 +175,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjiobjs2a0002wg0lzden6r4g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjipedkws00004s0lqtvw64uh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -174,7 +213,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjiobjs2d0003wg0lmybfq6d4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjipedkx200044s0ldnbl824g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -219,7 +258,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjiobjs230000wg0lhm0jgxw9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjipedkwz00024s0l6mhfgtpr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,6 +297,10 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/06/22/jvmGC机制/">gc垃圾回收机制</a>
+          </li>
         
           <li>
             <a href="/2018/06/21/BIO,NIO,AIO不同/">BIO,NIO,AIO不同</a>

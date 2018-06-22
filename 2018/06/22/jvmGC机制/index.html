@@ -5,19 +5,19 @@
   
 
   
-  <title>张博的网站</title>
+  <title>gc垃圾回收机制 | 张博的网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[名字] :https://www.cnblogs.com/liugang-vip/p/6337580.html “markdown语法”">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张博的网站">
-<meta property="og:url" content="http://yoursite.com/log/index.html">
+  <meta name="description" content="##新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象发到survior里面，survivor再放到老域 老域少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 ##如果GC一次运行周期超过3-5秒，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gc垃圾回收机制">
+<meta property="og:url" content="http://yoursite.com/2018/06/22/jvmGC机制/index.html">
 <meta property="og:site_name" content="张博的网站">
-<meta property="og:description" content="[名字] :https://www.cnblogs.com/liugang-vip/p/6337580.html “markdown语法”">
+<meta property="og:description" content="##新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象发到survior里面，survivor再放到老域 老域少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 ##如果GC一次运行周期超过3-5秒，">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-21T03:15:49.479Z">
+<meta property="og:updated_time" content="2018-06-22T03:09:36.812Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张博的网站">
-<meta name="twitter:description" content="[名字] :https://www.cnblogs.com/liugang-vip/p/6337580.html “markdown语法”">
+<meta name="twitter:title" content="gc垃圾回收机制">
+<meta name="twitter:description" content="##新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象发到survior里面，survivor再放到老域 老域少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 ##如果GC一次运行周期超过3-5秒，">
   
     <link rel="alternate" href="/atom.xml" title="张博的网站" type="application/atom+xml">
   
@@ -70,30 +70,52 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-jvmGC机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/log/index.html" class="article-date">
-  <time datetime="2018-06-21T03:15:49.511Z" itemprop="datePublished">2018-06-21</time>
+    <a href="/2018/06/22/jvmGC机制/" class="article-date">
+  <time datetime="2018-06-22T02:18:08.226Z" itemprop="datePublished">2018-06-22</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gc垃圾回收机制
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[名字] :<a href="https://www.cnblogs.com/liugang-vip/p/6337580.html" target="_blank" rel="noopener">https://www.cnblogs.com/liugang-vip/p/6337580.html</a> “markdown语法”</p>
+        <p>##新域<br>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象<br>复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象<br>发到survior里面，survivor再放到老域</p>
+<h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><p>少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收</p>
+<p>##<br>如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。<br>通常情况下，JVM堆的大小应为物理内存的80%。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/log/index.html" data-id="cjipedkwy00014s0lhqaurxwt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipedkx100034s0l29w8rih8" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/21/BIO,NIO,AIO不同/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">BIO,NIO,AIO不同</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
