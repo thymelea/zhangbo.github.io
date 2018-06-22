@@ -93,23 +93,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><blockquote>
-<blockquote>
-<p>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象<br>复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象<br>发到survior里面，survivor再放到老域</p>
-</blockquote>
-</blockquote>
-<h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><blockquote>
-<p>少量存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收</p>
-</blockquote>
-<h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
-<li>如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。</li>
-<li>通常情况下，JVM堆的大小应为物理内存的80%。</li>
-</ul>
-
+        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><pre><code>&gt; 几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象
+复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象
+发到survior里面，survivor再放到老域
+</code></pre><h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><pre><code>存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><pre><code>+ 如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。
++ 通常情况下，JVM堆的大小应为物理内存的80%。
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipez0pc0000ho0lopbrwmy2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjipf3ikv0004v00l19l2quz8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,7 +178,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjipez0pm0004ho0ldz8328jo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjipf3ikl0000v00lxncmacbm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -222,7 +216,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjipez0pi0002ho0lgyb40xxt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjipf3ikt0003v00lysilyh3a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +261,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjipez0pk0003ho0lbxijx94m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjipf3ikr0002v00lebsn5nws" class="article-share-link">Share</a>
       
       
     </footer>
