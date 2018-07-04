@@ -5,19 +5,20 @@
   
 
   
-  <title>Archives: 2018/6 | 张博的网站</title>
+  <title>gc垃圾回收机制 | 张博的网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学海无涯，止于至善">
+  <meta name="description" content="新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象 复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象 发到survior里面，survivor再放到老域 老域存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 注+ 如果GC一次运行周期超过3-5秒，这">
 <meta name="keywords" content="勤学如春起之苗，不见其增，日有所长。缀学如磨刀之石，不见其损，日有所亏。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张博的网站">
-<meta property="og:url" content="http://yoursite.com/archives/2018/06/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gc垃圾回收机制">
+<meta property="og:url" content="http://yoursite.com/2018/07/04/对于高并发的优化/index.html">
 <meta property="og:site_name" content="张博的网站">
-<meta property="og:description" content="学海无涯，止于至善">
+<meta property="og:description" content="新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象 复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象 发到survior里面，survivor再放到老域 老域存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 注+ 如果GC一次运行周期超过3-5秒，这">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-22T03:35:56.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="张博的网站">
-<meta name="twitter:description" content="学海无涯，止于至善">
+<meta name="twitter:title" content="gc垃圾回收机制">
+<meta name="twitter:description" content="新域几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象 复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象 发到survior里面，survivor再放到老域 老域存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收 注+ 如果GC一次运行周期超过3-5秒，这">
   
     <link rel="alternate" href="/atom.xml" title="张博的网站" type="application/atom+xml">
   
@@ -70,97 +71,57 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/06/22/jvmGC机制/" class="archive-article-date">
-  <time datetime="2018-06-22T02:18:08.226Z" itemprop="datePublished">Jun 22</time>
+        <section id="main"><article id="post-对于高并发的优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/04/对于高并发的优化/" class="article-date">
+  <time datetime="2018-07-04T05:32:04.071Z" itemprop="datePublished">2018-07-04</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/22/jvmGC机制/">gc垃圾回收机制</a>
+    <h1 class="article-title" itemprop="name">
+      gc垃圾回收机制
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/06/21/BIO,NIO,AIO不同/" class="archive-article-date">
-  <time datetime="2018-06-21T08:00:23.930Z" itemprop="datePublished">Jun 21</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/21/BIO,NIO,AIO不同/">BIO,NIO,AIO不同</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/06/21/MySQL时间增加/" class="archive-article-date">
-  <time datetime="2018-06-21T07:35:58.629Z" itemprop="datePublished">Jun 21</time>
-</a>
+        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><pre><code>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象
+复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象
+发到survior里面，survivor再放到老域
+</code></pre><h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><pre><code>存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><pre><code>+ 如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。
++ 通常情况下，JVM堆的大小应为物理内存的80%。
+</code></pre>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/21/MySQL时间增加/">MySQL 为日期增加一个时间间隔</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/06/20/hello-world/" class="archive-article-date">
-  <time datetime="2018-06-20T03:57:25.286Z" itemprop="datePublished">Jun 20</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/04/对于高并发的优化/" data-id="cjj6pyn3g0006ow0l3v6p8opy" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/20/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/03/java内存机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">处理并发和同步</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

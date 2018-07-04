@@ -72,6 +72,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-对于高并发的优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/04/对于高并发的优化/" class="article-date">
+  <time datetime="2018-07-04T05:32:04.071Z" itemprop="datePublished">2018-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/04/对于高并发的优化/">gc垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="新域"><a href="#新域" class="headerlink" title="新域"></a>新域</h2><pre><code>几乎所有对象都在新域里，新域里的对象大多都是短命的，通过GC复制算法将使用空间的存活对象
+复制到保留空间中，然后清空使用空间中不存活的对象，两个空间对换名称，重复复制几次，将最终存活的少量对象
+发到survior里面，survivor再放到老域
+</code></pre><h2 id="老域"><a href="#老域" class="headerlink" title="老域"></a>老域</h2><pre><code>存在对象使用追踪算法，称为标记-清除-压缩（开销大）收集器；满了触发full GC（很耗内存）进行回收
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><pre><code>+ 如果GC一次运行周期超过3-5秒，这会很影响应用程序的运行，如果可以，应该减少JVM堆的大小了。
++ 通常情况下，JVM堆的大小应为物理内存的80%。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/04/对于高并发的优化/" data-id="cjj6pyn3g0006ow0l3v6p8opy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java内存机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/03/java内存机制/" class="article-date">
@@ -86,7 +128,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/03/java内存机制/">java内存机制</a>
+      <a class="article-title" href="/2018/07/03/java内存机制/">处理并发和同步</a>
     </h1>
   
 
@@ -94,15 +136,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError"><a href="#程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError" class="headerlink" title="程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError"></a>程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError</h2><h2 id="java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就"><a href="#java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就" class="headerlink" title="java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就"></a>java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就</h2><p>是进栈和出栈的过程。所说的堆内存和栈内存中栈就是虚拟机栈，也可以说是虚拟机栈中的局部变量表。<br>局部变量表存放编译器可知的各种基本数据类型和对象引用。属于线程私有，如果线程请求的栈深度大<br>于虚拟机所允许的深度，将抛出StackOverflowError 异常；如果虚拟机栈可以动态扩展<br>当扩展时无法申请到足够的内存时会抛出OutOfMemoryError 异常。</p>
-<h2 id="本地方法栈与虚拟机栈相似。"><a href="#本地方法栈与虚拟机栈相似。" class="headerlink" title="本地方法栈与虚拟机栈相似。"></a>本地方法栈与虚拟机栈相似。</h2><h2 id="堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块"><a href="#堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块" class="headerlink" title="堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块"></a>堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块</h2><p>内存。<br>从内存回收的角度看：收集器大多采用分代收集算法，即新生代和老年代或者eden空间、from durvivor 空间、to survivor空间等；<br>从内存分配角度看: 线程共享的java堆中可能划分出多个线程私有的分配缓冲区。不同的分配是为了更好的管理和分配内存，无论怎么分存的都是内存对象，<br>不需要物理连续地址，需逻辑连续。</p>
-<h2 id="方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError"><a href="#方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError" class="headerlink" title="方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError"></a>方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError</h2><h2 id="运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将"><a href="#运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将" class="headerlink" title="运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将"></a>运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将</h2><p>在类加载后存放到方法区的运行时常量池，</p>
-<p>More info: <a href="https://www.cnblogs.com/dingyingsi/p/3760447.html" target="_blank" rel="noopener">更多</a></p>
+        <h2 id="如何处理并发和同步："><a href="#如何处理并发和同步：" class="headerlink" title="如何处理并发和同步："></a>如何处理并发和同步：</h2><h3 id="1-在程序中使用线程的锁机制完成并发控制，"><a href="#1-在程序中使用线程的锁机制完成并发控制，" class="headerlink" title="1. 在程序中使用线程的锁机制完成并发控制，"></a>1. 在程序中使用线程的锁机制完成并发控制，</h3><h3 id="2-在利用数据库的锁机制，如：悲观锁和乐观锁"><a href="#2-在利用数据库的锁机制，如：悲观锁和乐观锁" class="headerlink" title="2. 在利用数据库的锁机制，如：悲观锁和乐观锁"></a>2. 在利用数据库的锁机制，如：悲观锁和乐观锁</h3><h4 id="悲观锁-：就是在查询语句后面加上for-update，查询时锁住表的字段不可更新操作，直到事务提交，才会释放锁，缺点：对于大量数据操作时，"><a href="#悲观锁-：就是在查询语句后面加上for-update，查询时锁住表的字段不可更新操作，直到事务提交，才会释放锁，缺点：对于大量数据操作时，" class="headerlink" title="悲观锁 ：就是在查询语句后面加上for update，查询时锁住表的字段不可更新操作，直到事务提交，才会释放锁，缺点：对于大量数据操作时，"></a>悲观锁 ：就是在查询语句后面加上for update，查询时锁住表的字段不可更新操作，直到事务提交，才会释放锁，缺点：对于大量数据操作时，</h4><pre><code>资源浪费严重
+</code></pre><h4 id="乐观锁：在表结构基础上添加一个版本冗余字段，没对数据库中数据操作一次该字段进行一次加1，只有比当前版本大的数据才可入库，对于大量数据"><a href="#乐观锁：在表结构基础上添加一个版本冗余字段，没对数据库中数据操作一次该字段进行一次加1，只有比当前版本大的数据才可入库，对于大量数据" class="headerlink" title="乐观锁：在表结构基础上添加一个版本冗余字段，没对数据库中数据操作一次该字段进行一次加1，只有比当前版本大的数据才可入库，对于大量数据"></a>乐观锁：在表结构基础上添加一个版本冗余字段，没对数据库中数据操作一次该字段进行一次加1，只有比当前版本大的数据才可入库，对于大量数据</h4><pre><code>的操作一般都是用乐观锁。
+</code></pre><h2 id="对于大量数据处理："><a href="#对于大量数据处理：" class="headerlink" title="对于大量数据处理："></a>对于大量数据处理：</h2><h3 id="分表存储，如通过时间分，或者某些字段分"><a href="#分表存储，如通过时间分，或者某些字段分" class="headerlink" title="分表存储，如通过时间分，或者某些字段分"></a>分表存储，如通过时间分，或者某些字段分</h3><h2 id="对于大量并发请：1-提高访问带宽，2-搭建负载均衡服务器，3-oracle分表机制，进行分表，4-不持续操作数据库，使用缓存技术，5，使用静态页面"><a href="#对于大量并发请：1-提高访问带宽，2-搭建负载均衡服务器，3-oracle分表机制，进行分表，4-不持续操作数据库，使用缓存技术，5，使用静态页面" class="headerlink" title="对于大量并发请：1.提高访问带宽，2.搭建负载均衡服务器，3.oracle分表机制，进行分表，4.不持续操作数据库，使用缓存技术，5，使用静态页面"></a>对于大量并发请：1.提高访问带宽，2.搭建负载均衡服务器，3.oracle分表机制，进行分表，4.不持续操作数据库，使用缓存技术，5，使用静态页面</h2><p>More info: <a href="https://www.cnblogs.com/lr393993507/p/5909804.html" target="_blank" rel="noopener">更多</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/java内存机制/" data-id="cjj6inuxh0004600l4xyiikes" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/03/java内存机制/" data-id="cjj6pyn2y0003ow0l6f34huof" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjj6inuxj0005600le3xulkyj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjj6pyn3e0005ow0lx74uraop" class="article-share-link">Share</a>
       
       
     </footer>
@@ -219,7 +260,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjj6inuwy0000600lew0x92ku" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjj6pyn2p0000ow0l1orcuxgs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +298,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjj6inuxb0002600lb2p2dtaz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjj6pyn2z0004ow0l0glmelhw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -302,7 +343,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjj6inuxe0003600lt0kqqdfu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjj6pyn2w0002ow0ln3z7awd8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,7 +384,11 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       <ul>
         
           <li>
-            <a href="/2018/07/03/java内存机制/">java内存机制</a>
+            <a href="/2018/07/04/对于高并发的优化/">gc垃圾回收机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/03/java内存机制/">处理并发和同步</a>
           </li>
         
           <li>
@@ -356,10 +401,6 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
         
           <li>
             <a href="/2018/06/21/MySQL时间增加/">MySQL 为日期增加一个时间间隔</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/20/hello-world/">Hello World</a>
           </li>
         
       </ul>
