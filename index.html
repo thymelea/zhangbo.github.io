@@ -72,6 +72,46 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java内存机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/03/java内存机制/" class="article-date">
+  <time datetime="2018-07-03T09:22:06.797Z" itemprop="datePublished">2018-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/03/java内存机制/">java内存机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError"><a href="#程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError" class="headerlink" title="程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError"></a>程序计数器：内存空间较小，用于记录字节码执行的行号，多线程切换线程记录执行行数，属于线程私有，并且不会OutOfMemoryError</h2><h2 id="java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就"><a href="#java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就" class="headerlink" title="java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就"></a>java虚拟机栈：java方法执行的内存模型，没个方法执行都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口。方法的执行过程就</h2><p>是进栈和出栈的过程。所说的堆内存和栈内存中栈就是虚拟机栈，也可以说是虚拟机栈中的局部变量表。<br>局部变量表存放编译器可知的各种基本数据类型和对象引用。属于线程私有，如果线程请求的栈深度大<br>于虚拟机所允许的深度，将抛出StackOverflowError 异常；如果虚拟机栈可以动态扩展<br>当扩展时无法申请到足够的内存时会抛出OutOfMemoryError 异常。</p>
+<h2 id="本地方法栈与虚拟机栈相似。"><a href="#本地方法栈与虚拟机栈相似。" class="headerlink" title="本地方法栈与虚拟机栈相似。"></a>本地方法栈与虚拟机栈相似。</h2><h2 id="堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块"><a href="#堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块" class="headerlink" title="堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块"></a>堆：内存中最大的一块，堆是线程共享的，虚拟机启动时创建，用于存放对象实例和数组，几乎所有的对象实例都从堆中分配内存。gc回收就是回收这块</h2><p>内存。<br>从内存回收的角度看：收集器大多采用分代收集算法，即新生代和老年代或者eden空间、from durvivor 空间、to survivor空间等；<br>从内存分配角度看: 线程共享的java堆中可能划分出多个线程私有的分配缓冲区。不同的分配是为了更好的管理和分配内存，无论怎么分存的都是内存对象，<br>不需要物理连续地址，需逻辑连续。</p>
+<h2 id="方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError"><a href="#方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError" class="headerlink" title="方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError"></a>方法区：也是各线程共享的内存区域，用于存已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据，gc在该区域回收的是常量池和对数据类型的卸载，会抛出OutOfMemoryError</h2><h2 id="运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将"><a href="#运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将" class="headerlink" title="运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将"></a>运行时常量池：方法区的一部分，class文件除了有类的版本，字段，方法，接口还有常量池，用于放编译期生成的各种字面量和符号引用，这部分内容将</h2><p>在类加载后存放到方法区的运行时常量池，</p>
+<p>More info: <a href="https://www.cnblogs.com/dingyingsi/p/3760447.html" target="_blank" rel="noopener">更多</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/03/java内存机制/" data-id="cjj6inuxh0004600l4xyiikes" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jvmGC机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/22/jvmGC机制/" class="article-date">
@@ -104,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjitn8hnf0004fs0l35oh7int" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/22/jvmGC机制/" data-id="cjj6inuxj0005600le3xulkyj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -179,7 +219,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjitn8hnc0002fs0lfq0m5jgq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/BIO,NIO,AIO不同/" data-id="cjj6inuwy0000600lew0x92ku" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,7 +257,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjitn8hne0003fs0lt1nhp03a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/21/MySQL时间增加/" data-id="cjj6inuxb0002600lb2p2dtaz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -262,7 +302,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjitn8hn50000fs0lj43rzwak" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/06/20/hello-world/" data-id="cjj6inuxe0003600lt0kqqdfu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -290,7 +330,7 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li></ul>
     </div>
   </div>
 
@@ -301,6 +341,10 @@ AIO方式使用于连接数目多且连接比较长（重操作）的架构，�
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/03/java内存机制/">java内存机制</a>
+          </li>
         
           <li>
             <a href="/2018/06/22/jvmGC机制/">gc垃圾回收机制</a>
